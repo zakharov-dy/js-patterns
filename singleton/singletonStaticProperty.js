@@ -6,7 +6,7 @@ function Singleton() {
 }
 const o1 = new Singleton();
 const o2 = new Singleton();
-console.log(o1 === o2) // true
+console.log(o1 === o2); // true
 
 Singleton.prototype.date = Date.now();
-console.log(o1.date); //date
+console.log(o1.date); // date

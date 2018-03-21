@@ -1,29 +1,29 @@
 // Пример Эдди Османи
-const module = (function() {
-  const _module = {
+const myModule = (function () {
+  const _private = {
     i: 5,
-    get: function() {
-      console.log('Текущее значение:' + this.i);
+    get() {
+      console.log(`Текущее значение:${this.i}`);
     },
-    set: function(val) {
+    set(val) {
       this.i = val;
     },
-    run: function() {
+    run() {
       console.log('процесс запущен');
     },
-    jump: function() {
+    jump() {
       console.log('резкое изменение');
-    }
+    },
   };
   return {
-    facade: function(args) {
+    facade(args) {
       _private.set(args.val);
       _private.get();
       if (args.run) {
         _private.run();
       }
-    }
-  }
+    },
+  };
 }());
 
-module.facade({run:true, val:10});
+myModule.facade({ run: true, val: 10 });
