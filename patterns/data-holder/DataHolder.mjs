@@ -8,7 +8,7 @@ export class DataHolder {
   }
 
   get hasData() {
-    return this.#data !== undefined;
+    return Boolean(this.#data);
   }
 
   get data() {
