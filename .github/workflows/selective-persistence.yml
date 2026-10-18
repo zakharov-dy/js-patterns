@@ -1,0 +1,29 @@
+name: Selective persistence
+
+on:
+  push:
+    paths:
+      - 'patterns/selective-persistence/**'
+      - '.github/workflows/selective-persistence.yml'
+  pull_request:
+    paths:
+      - 'patterns/selective-persistence/**'
+      - '.github/workflows/selective-persistence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  selective-persistence:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '${{ matrix.node }}'
+      - run: node --test patterns/selective-persistence/selective-persistence.test.mjs
+      - run: node patterns/selective-persistence/example.mjs
