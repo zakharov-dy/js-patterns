@@ -1,0 +1,28 @@
+name: Single flight
+
+on:
+  push:
+    paths:
+      - 'patterns/single-flight/**'
+      - '.github/workflows/single-flight.yml'
+  pull_request:
+    paths:
+      - 'patterns/single-flight/**'
+      - '.github/workflows/single-flight.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  single-flight:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --test patterns/single-flight/*.test.mjs
+      - run: node patterns/single-flight/example.mjs
