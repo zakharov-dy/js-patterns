@@ -1,0 +1,34 @@
+name: Polling loop
+
+on:
+  push:
+    paths:
+      - 'patterns/polling-loop/PollingLoop.mjs'
+      - 'patterns/polling-loop/PollingLoop.test.mjs'
+      - 'patterns/polling-loop/example.mjs'
+      - 'patterns/polling-loop/README.md'
+      - '.github/workflows/polling-loop.yml'
+  pull_request:
+    paths:
+      - 'patterns/polling-loop/PollingLoop.mjs'
+      - 'patterns/polling-loop/PollingLoop.test.mjs'
+      - 'patterns/polling-loop/example.mjs'
+      - 'patterns/polling-loop/README.md'
+      - '.github/workflows/polling-loop.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  polling-loop:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node --test patterns/polling-loop/*.test.mjs
+      - run: node patterns/polling-loop/example.mjs
